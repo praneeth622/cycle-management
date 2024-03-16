@@ -44,10 +44,27 @@ function ProductDetail() {
                 <h2 className="text-sm title-font text-gray-500 tracking-widest">{product.brand}</h2>
                 <h1 className="text-gray-900 text-3xl title-font font-medium mb-1">{product.name}</h1>
                 {/* Other details */}
-                <p className="leading-relaxed">{product.description}</p>
+                <p className=" py-10 leading-relaxed">{product.description}</p>
                 {/* Other elements */}
                 <div class="flex">
-                    <span class="title-font font-medium text-2xl text-gray-900">{product.price}</span>
+                    <div class="flex items-center">
+                      <span class="mr-3">Time in Hr</span>
+                      <div class="relative mx-3">
+                        <select class="rounded border appearance-none border-gray-300 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-200 focus:border-indigo-500 text-base pl-3 pr-10">
+                          <option>1</option>
+                          <option>2</option>
+                          <option>3</option>
+                          <option>4</option>
+                        </select>
+                        
+                        <span class="absolute right-0 top-0 h-full w-10 text-center text-gray-600 pointer-events-none flex items-center justify-center">
+                          <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-4 h-4" viewBox="0 0 24 24">
+                            <path d="M6 9l6 6 6-6"></path>
+                          </svg>
+                        </span>
+                      </div>
+                  </div>
+                    <span class="title-font  font-medium text-2xl text-gray-900">{product.price}</span>
                     <button class="flex ml-auto text-white bg-blue-500 border-0 py-2 px-6 focus:outline-none hover:bg-blue-600 rounded">Button</button>
                     <button class="rounded-full w-10 h-10 bg-gray-200 p-0 border-0 inline-flex items-center justify-center text-gray-500 ml-4">
                         <svg fill="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-5 h-5" viewBox="0 0 24 24">
