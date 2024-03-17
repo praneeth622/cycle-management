@@ -39,6 +39,14 @@ To get started with the project, follow these steps:
 ### Support
 If you encounter any issues or have questions about the project, feel free to open an issue on GitHub or reach out to the project maintainers for assistance.
 
+### Path
+To start Backend `cd backend`
+`npm start`
+
+To start Frountend `cd frountend` `cd vashist`
+`npm start`
+
+
 ### License
 This project is licensed under the [MIT License](LICENSE). Feel free to modify and distribute the code as per the terms of the license.
 
