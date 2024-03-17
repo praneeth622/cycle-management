@@ -21,7 +21,10 @@ function ProductDetail() {
     if (!product) {
         return (
         <div>
-            Loading...
+            <button type="button" class="bg-indigo-500 ..." disabled>
+              <svg class="motion-reduce:hidden animate-spin ..." viewBox="0 0 24 24"></svg>
+              Processing...
+            </button>
         </div>
         );
     }else {

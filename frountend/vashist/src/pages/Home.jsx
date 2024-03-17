@@ -4,13 +4,7 @@ import Footer from '../components/footer'
 import { BrowserRouter as Router, Route, Link,Routes } from 'react-router-dom';
 import { useState } from 'react'
 import { ArrowPathIcon, CloudArrowUpIcon, CloudArrowDownIcon, LockClosedIcon } from '@heroicons/react/24/outline'
-
-const navigation = [
-  { name: 'Product', href: '#' },
-  { name: 'Features', href: '#' },
-  { name: 'Marketplace', href: '#' },
-  { name: 'Company', href: '#' },
-]
+import gif from '../asserts/bicycleG.gif'
 
 const features = [
   {
@@ -46,8 +40,14 @@ function Home() {
     <div className="App">
       <Navbar/>
       <div>
-        <div className="bg-white">
-        <div className="relative isolate px-6 pt-14 lg:px-8 ">
+
+        <div className="container main" style={{ 
+          backgroundImage: `url(${gif})`,
+          backgroundSize: 'cover', 
+          backgroundRepeat: 'no-repeat', 
+          backgroundPosition: 'center',
+       }}>
+        <div className="relative isolate px-6 pt-14 lg:px-8  ">
           <div
             className="absolute inset-x-0 -top-40 -z-10 transform-gpu overflow-hidden blur-3xl sm:-top-80"
             aria-hidden="true"
@@ -63,10 +63,14 @@ function Home() {
           <div className="mx-auto max-w-2xl py-32 sm:py-48 lg:py-56">
             
             <div className="text-center">
-              <h1 className="text-4xl font-bold tracking-tight text-gray-900 sm:text-6xl">
+              <h1 className="text-4xl font-bold text-sky-400 tracking-tight sm:text-6xl"style={{
+                color :"#fff"
+              }}>
                 Your Trusted Partner for Every Ride.
               </h1>
-              <p className="mt-6 text-lg leading-8 text-gray-600">
+              <p className="mt-6 text-lg leading-8 text-gray-600" style={{
+                color :"#febc4d"
+              }}>
                 Embodies the spirit of adventure and discovery, inviting individuals to embrace the freedom and excitement of cycling. This tagline suggests that cycling is not just a mode of transportation but a gateway to new experiences and exploration.
               </p>
               <div className="mt-10 flex items-center justify-center gap-x-6">
@@ -74,9 +78,9 @@ function Home() {
                   href="/find"
                   className="rounded-md bg-blue-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
                 >
-                  <Link to="/find">Find a Cycle</Link>
+                  Find a Cycle
                 </a>
-                <a href="#" className="text-sm font-semibold border-2 border-blue-600 rounded-md px-3 py-2 leading-6 text-gray-900">
+                <a href="/post" className="text-sm font-semibold border-2 border-blue-600 rounded-md px-3 py-2 leading-6 text-gray-900">
                 <Link to="/post">Post a Cycle</Link> <span aria-hidden="true">→</span>
                 </a>
               </div>
