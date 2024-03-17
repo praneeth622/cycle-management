@@ -1,7 +1,7 @@
 const mongoose = require('mongoose')
 
 //Defining schema
-const cycleSchema = new mongoose.Schema({
+const cyclesSchema = new mongoose.Schema({
     name:{
         type:String,
     },
@@ -30,6 +30,6 @@ const cycleSchema = new mongoose.Schema({
 
 //Creating the Schema 
 
-const Cycle = new mongoose.model('Cycle',cycleSchema)
+const Cycle = new mongoose.model('Cycle',cyclesSchema)
 
 module.exports = Cycle;
