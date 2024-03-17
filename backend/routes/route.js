@@ -23,7 +23,7 @@ route.post("/post",  async (req, res) => {
   
 try {
     const cycleData = {
-          imageSrc: req.files && req.files.image && req.files.image[0] ? req.files.image[0].filename : '../uploads/image.png',
+          imageSrc: req.files && req.files.image && req.files.image[0] ? req.files.image[0].filename : '../uploads/image.png',//defating if user dint post / upload image
           name: req.body.name ,
           mail: req.body.email ,
           cycleBrand: req.body.cycleBrand ,
