@@ -46,6 +46,8 @@ To start Backend `cd backend`
 To start Frountend `cd frountend` `cd vashist`
 `npm start`
 
+### Video Explaination 
+[Video](https://drive.google.com/file/d/1nms-ASAX58sNPb3Zv-ELWNeBhzY_yEPu/view?usp=drive_link)
 
 ### License
 This project is licensed under the [MIT License](LICENSE). Feel free to modify and distribute the code as per the terms of the license.
