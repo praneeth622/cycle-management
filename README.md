@@ -21,7 +21,7 @@ To get started with the project, follow these steps:
 
 1. **Clone the Repository**: 
    ```
-   git clone https://github.com/praneeth622/Vashisht-Hackathon.git
+   git clone https://github.com/praneeth622/cycle-management.git
    ```
 
 2. **Install Dependencies**:
