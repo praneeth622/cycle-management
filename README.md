@@ -30,7 +30,7 @@ To get started with the project, follow these steps:
 
 4. **Explore the Code**:
    Take some time to familiarize yourself with the project structure and codebase.
-    for accessing only frontend without cloning repo [Click Me !!!](https://cycle-management.vercel.app/)
+   For accessing only frontend without cloning repo [Click Me !!!](https://cycle-management.vercel.app/)
    
 
 6. **Contribute**:
