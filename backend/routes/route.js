@@ -2,6 +2,7 @@ const express = require('express');
 const route = express.Router(); // Change this line to use express.Router()
 const Cycle = require('../db/model/cycles');
 const contact = require('../db/model/contact');
+const user = require('../db/users/users')
 
 // Uploading file and storing file
 
@@ -69,6 +70,30 @@ route.post("/contact", async (req, res) => {
     res.status(400).send(error);
   }
 });
+
+route.post("/register",async(req,res)=>{
+  console.log(req.body)
+  try{
+    const email = req.body.email
+    const password = req.body.password
+    const name = req.body.name
+    const phoneNumber = req.body.phoneNumber
+
+    const newUser = new user({
+      name:name,
+      email:email,
+      password:password,
+      phoneNumber:phoneNumber
+    })
+    const saveUser = await newUser.save();
+    res.status(200).send(saveUser);
+  }
+  catch(error){
+    console.log("We got error while adding user")
+    console.log(error)
+    res.status(403).send("Error in adding User")
+  }
+})
 
 route.get("/", (req, res) => {
   res.send("Hello There");

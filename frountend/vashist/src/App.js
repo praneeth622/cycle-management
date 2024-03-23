@@ -7,6 +7,7 @@ import NotFound from './pages/Notfound';
 import Post from './pages/Post';
 import Find from './pages/Find';
 import ProductDetail from './pages/ProductDetail';
+import Register from './pages/register';
 
 
 function App() {
@@ -21,6 +22,7 @@ function App() {
           <Route path="/find" element={<Find />} />
           <Route path="*"element={<NotFound />}/>
           <Route path="/find/:id" element={<ProductDetail />} />
+          <Route path="/register" element={<Register />} />
         </Routes>
       </div>
     </Router>

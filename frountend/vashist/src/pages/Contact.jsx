@@ -5,7 +5,7 @@ import { useState } from 'react';
 
 function Contact() {
 
-    const [email, setEmail] = useState('');
+  const [email, setEmail] = useState('');
   const [message, setMessage] = useState('');
 
   const handleSubmit = () => {
