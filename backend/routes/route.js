@@ -95,6 +95,28 @@ route.post("/register",async(req,res)=>{
   }
 })
 
+route.post('/login',async(req,res)=>{
+  console.log(req.body)
+  try{
+    const email = req.body.email
+    const password = req.body.password
+
+    const useremail =await user.findOne({email:email})
+    
+    if(useremail.password === password){
+      res.status(200).send(useremail)
+    }
+    else{
+      res.status(400).send("Wrong Password")
+    }
+    console.log(useremail)
+  }
+  catch(err){
+    console.log("Login error")
+    console.log(err)
+  }
+})
+
 route.get("/", (req, res) => {
   res.send("Hello There");
 });

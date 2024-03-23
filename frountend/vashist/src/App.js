@@ -8,6 +8,7 @@ import Post from './pages/Post';
 import Find from './pages/Find';
 import ProductDetail from './pages/ProductDetail';
 import Register from './pages/register';
+import Login from './pages/login';
 
 
 function App() {
@@ -23,6 +24,7 @@ function App() {
           <Route path="*"element={<NotFound />}/>
           <Route path="/find/:id" element={<ProductDetail />} />
           <Route path="/register" element={<Register />} />
+          <Route path="/login" element={<Login />} />
         </Routes>
       </div>
     </Router>

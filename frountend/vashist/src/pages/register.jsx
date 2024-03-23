@@ -70,7 +70,7 @@ function Register() {
           <div className='py-5 text-3xl '>
             Register 
           </div>
-          <form className="space-y-4">
+          <div className="space-y-4">
           <input
               type="email"
               name="email"
@@ -109,7 +109,7 @@ function Register() {
             >
               Submit
             </button>
-          </form>
+          </div>
         </div>
         <div></div>
         <Footer />

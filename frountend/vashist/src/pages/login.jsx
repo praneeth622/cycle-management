@@ -3,14 +3,11 @@ import Navbar from'../components/navbar'
 import Footer from '../components/footer'
 import { useState } from 'react';
 
-function Register() {
+function Login() {
 
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const [phoneNumber,setPhoneNumber] = useState(0)
-    const [name, setName] = useState('');
     const [emailError, setEmailError] = useState('');
-    const [phoneError, setPhoneError] = useState('');
 
     const validateEmail = () => {
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -21,38 +18,28 @@ function Register() {
         setEmailError('');
         return true;
       };
-    
-      const validatePhoneNumber = () => {
-        const phoneRegex = /^\d{10}$/;
-        if (!phoneRegex.test(phoneNumber)) {
-          setPhoneError('Please enter a 10-digit phone number');
-          return false;
-        }
-        setPhoneError('');
-        return true;
-      };
-    
+
 
     const handleSubmit = () => {
-        if (!validateEmail() || !validatePhoneNumber()) {
+        if (!validateEmail()) {
             window.alert("Enter valid Details")
             return;
         }
-        console.log("Form Data:", { email, password, name, phoneNumber }); 
-        fetch('/register', {
+        console.log("Form Data:", { email, password}); 
+        fetch('/login', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify({ email:email, password:password, name:name, phoneNumber:phoneNumber }),
+            body: JSON.stringify({ email:email, password:password}),
         })
         .then(response => {
             if (response.ok) {
-              window.alert('Message sent successfully');
+              console.log('Login Successfull');
               window.location.href = "/"
               
             } else {
-              window.alert('Failed to send message');
+              window.alert('Failed to login');
               // Handle error if message failed to send
             }
           })
@@ -68,9 +55,9 @@ function Register() {
         <Navbar />
         <div className="max-w-md mx-auto py-20 ">
           <div className='py-5 text-3xl '>
-            Register 
+            Login 
           </div>
-          <form className="space-y-4">
+          <div className="space-y-4">
           <input
               type="email"
               name="email"
@@ -87,29 +74,13 @@ function Register() {
               placeholder="Password"
               className="block w-full px-4 py-2 border rounded-md"
             />
-            <input
-              type="text"
-              name="name"
-              value={name}
-              onChange={(e) => setName(e.target.value)}
-              placeholder="Name"
-              className="block w-full px-4 py-2 border rounded-md"
-            />
-            <input
-              type="tel"
-              name="userPhoneNumber"
-              value={phoneNumber}
-              onChange={(e) => setPhoneNumber(e.target.value)}
-              placeholder="Phone Number"
-              className="block w-full px-4 py-2 border rounded-md"
-            />
             <button
               type="submit"
               className="block w-full px-4 py-2 text-white bg-blue-500 rounded-md hover:bg-blue-600" onClick={handleSubmit}
             >
               Submit
             </button>
-          </form>
+          </div>
         </div>
         <div></div>
         <Footer />
@@ -117,4 +88,4 @@ function Register() {
   );
 }
 
-export default Register;
+export default Login;
