@@ -44,6 +44,7 @@ try {
 
 route.get("/find", async (req, res) => {
   try {
+    
     const data = await Cycle.find();
     res.status(200).send(data);
   } catch (error) {
@@ -85,6 +86,18 @@ route.post("/register",async(req,res)=>{
       password:password,
       phoneNumber:phoneNumber
     })
+
+    const token  = await newUser.genarateAuthToken()
+    console.log(`Genarated JWT is ${token}`)
+
+    // Createing a cookie
+    const expiryDate = new Date(Date.now() + 30000);
+    res.cookie('jwt',token,{
+      expires:expiryDate,
+      httpOnly:true
+    })
+    console.log(req.cookies)
+
     const saveUser = await newUser.save();
     res.status(200).send(saveUser);
   }
@@ -101,7 +114,18 @@ route.post('/login',async(req,res)=>{
     const email = req.body.email
     const password = req.body.password
 
-    const useremail =await user.findOne({email:email})
+    const useremail = await user.findOne({email:email})
+
+    const token = await useremail.genarateAuthToken()
+    console.log(`Genarated JWT is ${token}`)
+
+    //creating cookie
+    const expiryDate = new Date(Date.now() + 300000);
+    res.cookie('jwt',token,{
+      expires:expiryDate,
+      httpOnly:true
+    })
+    console.log(req.cookies)
     
     if(useremail.password === password){
       res.status(200).send(useremail)
@@ -118,6 +142,8 @@ route.post('/login',async(req,res)=>{
 })
 
 route.get("/", (req, res) => {
+  console.log(`this is sercet cookoie ${req.cookies.jwt}`)
+  console.log("This is hoe page")
   res.send("Hello There");
 });
 
