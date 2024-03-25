@@ -1,14 +1,14 @@
-**Vashisht Hackathon**
+**Cycle-Management**
 
 ---
 
-Welcome to the Vashisht Hackathon repository! This repository contains the source code and resources for the Vashisht Hackathon project.
+Welcome to the Cycle Management repository! This repository contains the source code and resources for the Cycle-Management project.
 
 ### About
-The Vashisht Hackathon is an initiative aimed at fostering creativity and innovation among developers. Whether you're a seasoned developer or just starting out, this hackathon provides a platform for you to showcase your skills, collaborate with others, and create something amazing.
+The Cycle Management is an initiative aimed at fostering creativity and innovation among developers.
 
 ### Project Overview
-This repository hosts the project developed for the Vashisht Hackathon. It includes the following components:
+This repository hosts the project developed for the Cycle Management. It includes the following components:
 
 1. **Source Code**: The source code for the project is organized into logical directories according to the functionality they implement.
    
@@ -46,8 +46,6 @@ To start Backend `cd backend`
 To start Frountend `cd frountend` `cd vashist`
 `npm start`
 
-### Video Explaination 
-[Video](https://drive.google.com/file/d/1nms-ASAX58sNPb3Zv-ELWNeBhzY_yEPu/view?usp=drive_link)
 
 ### License
 This project is licensed under the [MIT License](LICENSE). Feel free to modify and distribute the code as per the terms of the license.
