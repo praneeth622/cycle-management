@@ -3,6 +3,7 @@ const route = express.Router(); // Change this line to use express.Router()
 const Cycle = require('../db/model/cycles');
 const contact = require('../db/model/contact');
 const user = require('../db/users/users')
+const auth = require('../middlewares/auth')
 
 // Uploading file and storing file
 
@@ -42,9 +43,11 @@ try {
   }
 });
 
-route.get("/find", async (req, res) => {
+route.get("/find",auth, async (req, res) => {
+  console.log(req.body)
   try {
     
+    const token = req.cookies.jwt;
     const data = await Cycle.find();
     res.status(200).send(data);
   } catch (error) {

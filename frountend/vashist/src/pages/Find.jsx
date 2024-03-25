@@ -63,6 +63,23 @@ function classNames(...classes) {
 
 function Find() {
     const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false)
+    fetch('/find', {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        credentials: 'include'
+      })
+      .then(response => {
+        if (response.ok) {
+        } else {
+          window.location.href = "/login"
+        }
+      })
+      .catch(error => {
+        console.error('Error:', error);
+        window.location.href = "/login"
+      });
   return (
     <div>
         <Navbar />

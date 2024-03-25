@@ -41,7 +41,6 @@ function Contact() {
             width="100%"
             height="100%"
             className="absolute inset-0"
-            frameBorder="0"
             title="map"
             marginHeight="0"
             marginWidth="0"

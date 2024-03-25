@@ -48,7 +48,7 @@ function Register() {
         })
         .then(response => {
             if (response.ok) {
-              window.alert('Message sent successfully');
+              window.alert('Registration  successfully');
               window.location.href = "/"
               
             } else {
