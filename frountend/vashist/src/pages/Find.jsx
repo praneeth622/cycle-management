@@ -72,6 +72,7 @@ function Find() {
       })
       .then(response => {
         if (response.ok) {
+            return
         } else {
           window.location.href = "/login"
         }

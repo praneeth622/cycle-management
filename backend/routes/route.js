@@ -46,7 +46,6 @@ try {
 route.get("/find",auth, async (req, res) => {
   console.log(req.body)
   try {
-    
     const token = req.cookies.jwt;
     const data = await Cycle.find();
     res.status(200).send(data);
@@ -141,6 +140,22 @@ route.post('/login',async(req,res)=>{
   catch(err){
     console.log("Login error")
     console.log(err)
+  }
+})
+
+route.get("/logout",async(req,res)=>{
+  //console.log(res.body)
+  // console.log(req)
+  try{
+
+    res.clearCookie('jwt')
+    console.log("Logout Sucessfull")
+    
+    res.redirect("/")
+  }
+  catch(err){
+    res.status(400).send("Unbale to Logout")
+   // console.log("Logout issue")
   }
 })
 

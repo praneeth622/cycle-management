@@ -25,6 +25,7 @@ function App() {
           <Route path="/find/:id" element={<ProductDetail />} />
           <Route path="/register" element={<Register />} />
           <Route path="/login" element={<Login />} />
+          <Route path="/logout" element={<Home />} />
         </Routes>
       </div>
     </Router>

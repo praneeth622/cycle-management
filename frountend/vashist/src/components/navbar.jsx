@@ -1,20 +1,48 @@
-import React, { useState } from 'react';
+import React from 'react';
+import { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import logo from '../asserts/bicycle.gif';
 import '../styles/navbar.css';
 
 function Navbar() {
     const location = useLocation();
+    const [isLoggedIn, setIsLoggedIn] = useState(false); 
+
+    useEffect(() => {
+        const token = document.cookie.includes('jwt');
+        
+        {
+            if(!token){
+                setIsLoggedIn(false)
+            }
+            else{
+                setIsLoggedIn(true)
+            }
+        }
+    });
 
     const isFindPage = location.pathname === '/find';
     const isProductDetailPage = location.pathname.startsWith('/find/');
 
-    const [isLoggedIn, setIsLoggedIn] = useState(false); 
+   
 
     
-    const handleLogout = () => {
-        
-        setIsLoggedIn(false);
+    const handleLogout = async () => {
+        try {
+            const response = await fetch('/logout', {
+                method: 'GET',
+                credentials: 'include'
+            });
+            if (response.ok) {
+                window.location.href = '/'; 
+                setIsLoggedIn(false)
+            } else {
+                console.log(response)
+                console.error('Logout failed');
+            }
+        } catch (error) {
+            console.error('Error during logout:', error);
+        }
     };
 
     return (
@@ -29,15 +57,14 @@ function Navbar() {
                         <a className="mr-5 hover:text-gray-900"><Link to="/">Home</Link></a>
                         <a className="mr-5 hover:text-gray-900"><Link to="/about">About</Link></a>
                         <a className="mr-5 hover:text-gray-900"><Link to="/contact">Contact</Link></a>
-                        {!isLoggedIn && (
-                            <div className='mr-5 hover:text-gray-900'><Link to="/register">Register</Link></div>
-                        )}
-                        {!isLoggedIn && (
+                        
+                            <div className='mr-5 hover:text-gray-900' ><Link to="/register">Register</Link></div>
+                        
                             <div className='mr-5 hover:text-gray-900'><Link to="/login">Login</Link></div>
-                        )}
-                        {isLoggedIn && (
+                        
                             <button onClick={handleLogout} className="mr-5 hover:text-gray-900">Logout</button>
-                        )}
+                        
+                        
                     </nav>
                     {!isProductDetailPage && !isFindPage && (
                         <button className="inline-flex items-center bg-red-400 border-1 py-1 px-3 focus:outline-none hover:bg-red-600 rounded text-white mt-4 md:mt-0">
