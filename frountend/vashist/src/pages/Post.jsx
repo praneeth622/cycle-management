@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Navbar from '../components/navbar';
 import Footer from '../components/footer';
 import axios from 'axios';
 
 const CycleForm = () => {
+  
   const [formData1, setFormData1] = useState({
     name: '',
     email: '',
@@ -16,6 +17,24 @@ const CycleForm = () => {
   });
   const [file,setfile] = useState()
 
+  useEffect(()=>{
+    const fetchData = async()=>{
+      const response = await fetch('/post',{
+        method: 'GET',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            credentials: 'include'})
+      if(!response.ok){
+        window.location.href = "/login"
+      }
+      else{
+        return
+
+      }
+    }
+    fetchData();
+  },[])
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData1((prevData) => ({

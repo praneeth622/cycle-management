@@ -24,7 +24,6 @@ function Navbar() {
     const isFindPage = location.pathname === '/find';
     const isProductDetailPage = location.pathname.startsWith('/find/');
 
-   
 
     
     const handleLogout = async () => {
