@@ -20,8 +20,12 @@ const auth = require('../middlewares/auth')
 //   { name: 'cycleDescription', maxCount: 4 },
 //   { name: 'image', maxCount: 4 },
 // ]);
+route.get('/post',auth,async(req,res)=>{
+  res.send("You are logged in and authorized to access this route.");
+})
 
-route.post("/post",  async (req, res) => {
+
+route.post("/post",auth,  async (req, res) => {
   
 try {
     const cycleData = {
@@ -36,6 +40,7 @@ try {
     };
     const cycleD = new Cycle(cycleData)
     const createcycle = await cycleD.save();
+    console.log("newcycle posted")
     res.status(201).send(createcycle);
   } catch (error) {
     console.error("Error in posting cycle:", error);
