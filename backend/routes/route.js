@@ -3,7 +3,16 @@ const route = express.Router(); // Change this line to use express.Router()
 const Cycle = require('../db/model/cycles');
 const contact = require('../db/model/contact');
 const user = require('../db/users/users')
-const auth = require('../middlewares/auth')
+// const auth = require('../middlewares/auth')
+const multer = require('multer');
+const { Storage } = require('@google-cloud/storage');
+const path = require('path');
+const storage = new Storage({
+  keyFilename: 'vertexai-key.json', // Update this with the path to your service account key file
+});
+
+const bucketName = 'vertex-ai-project1'; // Replace with your bucket name
+const upload = multer({ dest: 'uploads/' });
 
 // Uploading file and storing file
 
@@ -20,35 +29,38 @@ const auth = require('../middlewares/auth')
 //   { name: 'cycleDescription', maxCount: 4 },
 //   { name: 'image', maxCount: 4 },
 // ]);
-route.get('/post',auth,async(req,res)=>{
-  res.send("You are logged in and authorized to access this route.");
-})
+// route.get('/post',auth,async(req,res)=>{
+//   res.send("You are logged in and authorized to access this route.");
+// })
 
+route.post('/post', upload.single('file'), async (req, res) => {
+  try {
+    const file = req.file;
+    if (!file) {
+      return res.status(400).send('File not found');
+    }
 
-route.post("/post",auth,  async (req, res) => {
-  
-try {
-    const cycleData = {
-          imageSrc: req.files && req.files.image && req.files.image[0] ? req.files.image[0].filename : '../uploads/image.png',//defating if user dint post / upload image
-          name: req.body.name ,
-          mail: req.body.email ,
-          cycleBrand: req.body.cycleBrand ,
-          userPhoneNumber: req.body.userPhoneNumber,
-          userRollNumber: req.body.userRollNumber ,
-          pricePerHr: req.body.pricePerHr, 
-          cycleDescription: req.body.cycleDescription,
-    };
-    const cycleD = new Cycle(cycleData)
-    const createcycle = await cycleD.save();
-    console.log("newcycle posted")
-    res.status(201).send(createcycle);
+    // Generate a unique filename with a timestamp
+    const filename = `${Date.now()}-${path.basename(file.originalname)}`;
+    
+    // Upload the file to Google Cloud Storage
+    await storage.bucket(bucketName).upload(file.path, {
+      destination: filename,
+      public: true, // Make the file publicly accessible
+    });
+
+    // Get the public URL of the file
+    const publicUrl = `https://storage.googleapis.com/${bucketName}/${filename}`;
+    console.log(publicUrl)
+    // Send the public URL as the response
+    res.status(200).send({ url: publicUrl });
   } catch (error) {
-    console.error("Error in posting cycle:", error);
-    res.status(400).send(error);
+    console.error('Error uploading file:', error);
+    res.status(500).send('Internal Server Error');
   }
 });
 
-route.get("/find",auth, async (req, res) => {
+route.get("/find", async (req, res) => {
   console.log(req.body)
   try {
     const token = req.cookies.jwt;
@@ -61,8 +73,8 @@ route.get("/find",auth, async (req, res) => {
 });
 
 route.post("/contact", async (req, res) => {
-    const reqs= JSON.stringify(req.body)
-    console.log(reqs)
+  const reqs = JSON.stringify(req.body)
+  console.log(reqs)
   try {
     const { email, message } = req.body;
 
@@ -79,88 +91,88 @@ route.post("/contact", async (req, res) => {
   }
 });
 
-route.post("/register",async(req,res)=>{
+route.post("/register", async (req, res) => {
   console.log(req.body)
-  try{
+  try {
     const email = req.body.email
     const password = req.body.password
     const name = req.body.name
     const phoneNumber = req.body.phoneNumber
 
     const newUser = new user({
-      name:name,
-      email:email,
-      password:password,
-      phoneNumber:phoneNumber
+      name: name,
+      email: email,
+      password: password,
+      phoneNumber: phoneNumber
     })
 
-    const token  = await newUser.genarateAuthToken()
+    const token = await newUser.genarateAuthToken()
     console.log(`Genarated JWT is ${token}`)
 
     // Createing a cookie
     const expiryDate = new Date(Date.now() + 30000);
-    res.cookie('jwt',token,{
-      expires:expiryDate,
-      httpOnly:true
+    res.cookie('jwt', token, {
+      expires: expiryDate,
+      httpOnly: true
     })
     console.log(req.cookies)
 
     const saveUser = await newUser.save();
     res.status(200).send(saveUser);
   }
-  catch(error){
+  catch (error) {
     console.log("We got error while adding user")
     console.log(error)
     res.status(403).send("Error in adding User")
   }
 })
 
-route.post('/login',async(req,res)=>{
+route.post('/login', async (req, res) => {
   console.log(req.body)
-  try{
+  try {
     const email = req.body.email
     const password = req.body.password
 
-    const useremail = await user.findOne({email:email})
+    const useremail = await user.findOne({ email: email })
 
     const token = await useremail.genarateAuthToken()
     console.log(`Genarated JWT is ${token}`)
 
     //creating cookie
     const expiryDate = new Date(Date.now() + 300000);
-    res.cookie('jwt',token,{
-      expires:expiryDate,
-      httpOnly:true
+    res.cookie('jwt', token, {
+      expires: expiryDate,
+      httpOnly: true
     })
     console.log(req.cookies)
-    
-    if(useremail.password === password){
+
+    if (useremail.password === password) {
       res.status(200).send(useremail)
     }
-    else{
+    else {
       res.status(400).send("Wrong Password")
     }
     console.log(useremail)
   }
-  catch(err){
+  catch (err) {
     console.log("Login error")
     console.log(err)
   }
 })
 
-route.get("/logout",async(req,res)=>{
+route.get("/logout", async (req, res) => {
   //console.log(res.body)
   // console.log(req)
-  try{
+  try {
 
     res.clearCookie('jwt')
     console.log("Logout Sucessfull")
-    
+
     res.redirect("/")
   }
-  catch(err){
+  catch (err) {
     res.status(400).send("Unbale to Logout")
-   // console.log("Logout issue")
+    // console.log("Logout issue")
   }
 })
 
